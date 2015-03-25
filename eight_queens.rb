@@ -54,7 +54,22 @@ class Eightqueens
 
   end
 
-  def invalidate_
+  def invalidate_diags(row,col)
+    # go southeast [+1,+1]
+    invalidate_left_down(row, col)
+    invalidate_left_up(row, col)
+
+  end
+
+  def invalidate_left_down(row, col)
+    unless row == 7
+      ((row+1)..7).each do |row|
+        col+=1
+        @valid_board[row][col] = false if col <= 7
+      end
+    end
+
+  end
 
   def display_board
     display = @board
