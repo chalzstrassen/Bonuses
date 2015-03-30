@@ -32,9 +32,9 @@ class Eightqueens
       p row
     end
 
-    @valid_board.each do |row|
-      p row
-    end
+    # @valid_board.each do |row|
+    #   p row
+    # end
 
   end
 
@@ -51,7 +51,7 @@ class Eightqueens
 
   def no_valid?
     invalid_board = Array.new(8){Array.new(8, false)}
-    @valid_board == 
+    @valid_board == invalid_board
 
   end
 
@@ -78,7 +78,7 @@ class Eightqueens
   end
 
   def invalidate_left_down(row, col)
-    unless row == 7 || 
+    unless row == 7 
       ((row+1)..7).each do |row|
         col -= 1 
         @valid_board[row][col] = false if col >= 0
@@ -99,7 +99,7 @@ class Eightqueens
     unless row == 0 
       (row-1).downto(0).each do |row|
         col += 1
-        @valid_board[row][col] = false if col <= 0
+        @valid_board[row][col] = false if col <= 7
       end
     end
   end
@@ -108,7 +108,7 @@ class Eightqueens
     unless row == 7 
       ((row+1)..7).each do |row|
         col += 1 
-        @valid_board[row][col] = false if col <= 0
+        @valid_board[row][col] = false if col <= 7
       end
     end
   end
@@ -138,11 +138,14 @@ class Solver
   def user_interact
     puts "Choose which row to place queen:"
     row = gets.chomp.to_i
-    puts row
     puts "Choose which column to place queen:"
     col = gets.chomp.to_i
-    puts col
-    @puzzle.place_queen(row, col) if @puzzle.valid_spot?(row, col)
+    if @puzzle.valid_spot?(row, col)
+      @puzzle.place_queen(row, col) 
+    else
+      puts "Not a valid spot to place a queen."
+    end
+
   end
 end
 
